@@ -23,6 +23,18 @@ Video follows the existing workflow and each answer's `next_step`. When it suppl
 
 Sandbox execution is not included in this package. Its availability and credit cost have not been established. Provider-specific manual tests must cover the full local handoff and the actual final output before claiming that workflow works there.
 
+## Claude installation and review
+
+The native Claude adapter uses `.claude-plugin/plugin.json`, `.mcp.json` and the same five skills. With this repository checked out locally, load it in Claude Code:
+
+```sh
+claude --plugin-dir /absolute/path/to/agent-plugin
+```
+
+Sign in to the GooseWorks MCP connection when Claude prompts. Claude manages its OAuth credentials. Installing the plugin does not authorize an account or approve paid work. For chat and Cowork, installation through the public directory depends on Anthropic accepting the plugin and its associated MCP connector.
+
+Directory publication is pending. The current package includes AI image and video workflows, so its eligibility must be resolved against the [Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy) before publication. Local schema validation does not establish policy acceptance, sign-in or end-to-end workflow behavior.
+
 ## Hermes installation and approvals
 
 Requires Hermes 0.22.2 or later. After the catalog entry is accepted, install with `hermes plugins install gooseworks`, then explicitly enable the plugin with `hermes plugins enable gooseworks`.
