@@ -1,6 +1,6 @@
 # GooseWorks plugin — review candidate
 
-This package contains the current GooseWorks entry skills and its hosted MCP connection. The Hermes catalog candidate uses the portable Agent Plugins format. Full signed-in research, paid generation and final video delivery still need manual end-to-end testing.
+This package contains five GooseWorks skills and its hosted MCP connection, with adapters for Claude, Gemini CLI and Hermes. It can read and store personal data supplied for a task. Approved uploads and local video work can send files outside the MCP connection. Data can be retained for longer than 30 days. The plugin is intended for adult business users. Full signed-in research, paid generation and final video delivery still need manual end-to-end testing.
 
 ## What is included
 
@@ -45,11 +45,44 @@ The package provides five namespaced skills and one remote MCP server. It regist
 
 ## Data, network and execution disclosures
 
-- **Network and account data:** the remote MCP client connects to `https://mcp.gooseworks.ai/mcp`. Requests and user-selected brand material go to GooseWorks. Depending on the requested task, GooseWorks reads saved brand knowledge, products, uploaded assets and connected advertising accounts, researches public web/social sources, or sends inputs to its generation providers. These services operate remotely; their current schemas and workflow instructions are supplied by GooseWorks rather than frozen in this package.
-- **Sign-in and credentials:** a GooseWorks account and interactive sign-in are required. Hermes's remote MCP client manages OAuth and its token storage. The package contains no secrets and no code that reads `.env`, another application's login, browser profiles or credential stores. Connected third-party accounts are managed by GooseWorks. Paid work requires a GooseWorks credit balance.
-- **Local commands and files:** research, image ads and product photos use the hosted MCP. Video workflows may return a production command for the user's computer. Review the exact returned command, paths and destinations before allowing Hermes to execute it. The command can download instructions/assets, read the selected source files, write local media and upload production outputs to GooseWorks; it runs with the local user's authority and can take a long time. Local execution is a separate approval boundary and is not a sandbox. No fixed production command or executable is shipped in this package.
+### What the plugin reads and stores
+
+GooseWorks reads and stores account details such as names and email addresses. Depending on the requested task, it also processes brand knowledge, research about people and companies, prospect/contact information, selected files and images, prompts, project records, generated media and connected advertising data. These inputs can contain personal data, including names, email addresses and identifiable people in images or video.
+
+The skills can save brand facts, research, uploaded files and project outputs in the GooseWorks workspace. They can read saved data and connected accounts for the requested work. Claude sends the task inputs used in tool calls; this package does not automatically export the user's full Claude conversation history or read unrelated local files.
+
+### Services and destinations
+
+The declared connector is `https://mcp.gooseworks.ai/mcp`. It receives tool arguments and selected task material and returns results and current workflow instructions. Other transfers can occur during an approved workflow:
+
+| Service or destination | How it is used | Data involved |
+| --- | --- | --- |
+| GooseWorks API at `https://api.gooseworks.ai` and skill hub at `https://skills.gooseworks.ai` | Optional terminal workflows fetch recipes, run API requests and report production progress outside the MCP transport | Requested queries, project identifiers, selected inputs, production metadata and results; authentication is sent to the relevant GooseWorks service |
+| GooseWorks-managed Amazon S3 storage, through the exact signed upload/download URL returned for the operation | A client or approved local video command can transfer file bytes directly to storage, outside the MCP transport | User-selected source files, images, audio, video and completed outputs; the video client sends the upload's specified headers rather than its GooseWorks login token |
+| Source websites and media hosts named in the requested workflow | Research and local production may retrieve source pages, assets or generated media | Requested URLs, search queries and ordinary request metadata; local source files are not automatically uploaded to every source website |
+
+GooseWorks also forwards task inputs to downstream services when the requested work needs them. Integrations include fal (`queue.fal.run`, `rest.fal.ai`) for image/video generation and asset storage, ElevenLabs (`api.elevenlabs.io`) for audio, and Higgsfield (`platform.higgsfield.ai`) for supported media tasks. Research and data calls can use managed providers such as Apify and ScrapeCreators or a provider selected through the GooseWorks API catalog. Depending on the operation, these providers receive prompts, reference media, URLs, search terms or lookup fields. Not every task uses every provider. These are transfers by the GooseWorks service or its managed proxy, separate from a skill making a direct vendor call.
+
+Recipes are fetched at runtime, so this package is not a frozen inventory of every possible provider or source host. Review the actual recipe, returned command and transfer destinations before approving local execution or a new task-specific transfer. The installed skills direct provider calls through GooseWorks; they do not ask for the user's provider keys. See the [privacy policy](https://gooseworks.ai/privacy) for service-provider processing and the limits on use of private workspace content.
+
+### Retention and deletion
+
+Data saved to a GooseWorks workspace can remain for **longer than 30 days**. There is no blanket promise that all inputs received from Claude are discarded immediately or deleted within 30 days. Individual temporary records can have shorter lifetimes without changing the retention of saved workspace content.
+
+Under the [published privacy policy](https://gooseworks.ai/privacy), a workspace owner can close an account in **Settings → Account → Close account**. Closure disables the workspace immediately. Data remains recoverable during a full 30-day grace period, and permanent deletion is scheduled for the first of the month after that period expires. Deletion can therefore occur later than day 30. Billing/tax or other legally required records may remain, and backups expire through the backup rotation rather than immediately.
+
+Disconnecting an advertising account deletes its access credential and stops syncing, but previously imported metrics remain for historical reports until separately erased. See the [data deletion instructions](https://gooseworks.ai/data-deletion), or contact `help@gooseworks.ai` for deletion or restoration requests. These statements describe GooseWorks retention; they do not set a retention period for a third-party provider or for files the user keeps locally.
+
+### Intended audience
+
+This plugin is intended for **adult business users** working on brand research, marketing, sales and creative production. It is **not intended for users under 18**. The general GooseWorks privacy policy separately states that the service is not intended for children under 16; that statement is not a claim that this plugin targets 16–17-year-olds. This package adds no age-verification mechanism.
+
+### Credentials, local execution and background work
+
+- **Sign-in and credentials:** a GooseWorks account and interactive sign-in are required. The host's MCP client manages OAuth and its token storage. The package contains no secrets and no code that reads `.env`, another application's login, browser profiles or credential stores. Connected third-party accounts are managed by GooseWorks. Paid work requires a GooseWorks credit balance.
+- **Local commands and files:** research, image ads and product photos use the hosted MCP, with direct file transfers where an upload is requested. Video workflows may return a production command for the user's computer. Review the exact command, paths and destinations before allowing the host to execute it. It can download instructions/assets, read selected source files, write local media and upload production outputs; it runs with the local user's authority and can take a long time. Local execution is a separate approval boundary and is not a sandbox. No fixed production command or executable is shipped in this package.
 - **Background jobs:** remote research and generation may continue after a tool response; the skills poll saved job IDs. This package starts no daemon or scheduled task on its own.
-- **Updates and reporting:** the package has no self-updater or telemetry code. Hermes controls updates to catalog-pinned files. GooseWorks records account activity and credit usage as part of the hosted service; see its privacy policy. Installing the plugin does not enroll the user in optional telemetry.
+- **Updates and reporting:** the package has no self-updater or telemetry code. The host controls plugin updates. GooseWorks records account activity and credit usage as part of its hosted service; see its privacy policy. Installing the plugin does not enroll the user in optional telemetry.
 
 ## Review status
 
