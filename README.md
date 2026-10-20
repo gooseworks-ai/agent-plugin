@@ -1,6 +1,6 @@
 # GooseWorks plugin — review candidate
 
-This package contains the current GooseWorks entry skills and its hosted MCP connection. It is prepared for review; provider installation and manual end-to-end testing are still required before submission.
+This package contains the current GooseWorks entry skills and its hosted MCP connection. The Hermes catalog candidate uses the portable Agent Plugins format. Full signed-in research, paid generation and final video delivery still need manual end-to-end testing.
 
 ## What is included
 
@@ -22,6 +22,22 @@ Ask for a brand research task, image ads or product photos. Existing onboarding 
 Video follows the existing workflow and each answer's `next_step`. When it supplies a make command, its last line says who starts it. An agent with a terminal may run that exact command after the required approval. In a hosted chat without a terminal, the customer runs the supplied command locally. A command or approved plan alone is not a finished video.
 
 Sandbox execution is not included in this package. Its availability and credit cost have not been established. Provider-specific manual tests must cover the full local handoff and the actual final output before claiming that workflow works there.
+
+## Hermes installation and approvals
+
+Requires Hermes 0.22.2 or later. After the catalog entry is accepted, install with `hermes plugins install gooseworks`, then explicitly enable the plugin with `hermes plugins enable gooseworks`.
+
+The Hermes extension in `plugin.json` marks the `gooseworks` MCP server as `untrusted`. Hermes asks before calls that lack `readOnlyHint: true` and refuses those calls in unattended runs where nobody can approve. GooseWorks also requires approval of the quoted credit amount before paid work. Neither approval replaces the other. The plugin does not override Hermes guards.
+
+The package provides five namespaced skills and one remote MCP server. It registers no native Python tools, hooks, middleware or Desktop UI. No Python dependencies, local MCP subprocess or API keys are bundled.
+
+## Data, network and execution disclosures
+
+- **Network and account data:** the remote MCP client connects to `https://mcp.gooseworks.ai/mcp`. Requests and user-selected brand material go to GooseWorks. Depending on the requested task, GooseWorks reads saved brand knowledge, products, uploaded assets and connected advertising accounts, researches public web/social sources, or sends inputs to its generation providers. These services operate remotely; their current schemas and workflow instructions are supplied by GooseWorks rather than frozen in this package.
+- **Sign-in and credentials:** a GooseWorks account and interactive sign-in are required. Hermes's remote MCP client manages OAuth and its token storage. The package contains no secrets and no code that reads `.env`, another application's login, browser profiles or credential stores. Connected third-party accounts are managed by GooseWorks. Paid work requires a GooseWorks credit balance.
+- **Local commands and files:** research, image ads and product photos use the hosted MCP. Video workflows may return a production command for the user's computer. Review the exact returned command, paths and destinations before allowing Hermes to execute it. The command can download instructions/assets, read the selected source files, write local media and upload production outputs to GooseWorks; it runs with the local user's authority and can take a long time. Local execution is a separate approval boundary and is not a sandbox. No fixed production command or executable is shipped in this package.
+- **Background jobs:** remote research and generation may continue after a tool response; the skills poll saved job IDs. This package starts no daemon or scheduled task on its own.
+- **Updates and reporting:** the package has no self-updater or telemetry code. Hermes controls updates to catalog-pinned files. GooseWorks records account activity and credit usage as part of the hosted service; see its privacy policy. Installing the plugin does not enroll the user in optional telemetry.
 
 ## Review status
 

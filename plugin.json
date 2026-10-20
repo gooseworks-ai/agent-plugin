@@ -15,5 +15,14 @@
     "product-photography"
   ],
   "repository": "https://github.com/gooseworks-ai/agent-plugin",
-  "license": "MIT"
+  "license": "MIT",
+  "extensions": {
+    "com.nousresearch.hermes": {
+      "servers": {
+        "gooseworks": {
+          "trust": "untrusted"
+        }
+      }
+    }
+  }
 }
