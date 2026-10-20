@@ -1,6 +1,21 @@
-# GooseWorks plugin — review candidate
+# GooseWorks plugin
 
-This package contains five GooseWorks skills and its hosted MCP connection, with adapters for Claude, Gemini CLI and Hermes. It can read and store personal data supplied for a task. Approved uploads and local video work can send files outside the MCP connection. Data can be retained for longer than 30 days. The plugin is intended for adult business users. Full signed-in research, paid generation and final video delivery still need manual end-to-end testing.
+GooseWorks for Claude Code and other agents: brand research, image ads, product photos and video ad planning, through five skills and the hosted GooseWorks MCP connection. Adapters are included for Claude, Gemini CLI and Hermes.
+
+## Install in Claude Code
+
+Add the GooseWorks marketplace once, then install the plugin:
+
+```sh
+claude plugin marketplace add gooseworks-ai/gooseworks
+claude plugin install gooseworks@gooseworks
+```
+
+Sign in to GooseWorks when Claude prompts. To get new versions, run `claude plugin update gooseworks@gooseworks`, or turn on auto-update for the `gooseworks` marketplace.
+
+On claude.ai, Claude Desktop or Cowork, add `https://mcp.gooseworks.ai/mcp` as a custom connector to use the GooseWorks tools. The skills in this package are not added that way.
+
+**Before you start:** the plugin can read and store personal data supplied for a task. Approved uploads and local video work can send files outside the MCP connection. Saved data can be kept for longer than 30 days. The plugin is for adult business users. Details are under [Data, network and execution disclosures](#data-network-and-execution-disclosures).
 
 ## What is included
 
@@ -23,17 +38,19 @@ Video follows the existing workflow and each answer's `next_step`. When it suppl
 
 Sandbox execution is not included in this package. Its availability and credit cost have not been established. Provider-specific manual tests must cover the full local handoff and the actual final output before claiming that workflow works there.
 
-## Claude installation and review
+## Claude adapter
 
-The native Claude adapter uses `.claude-plugin/plugin.json`, `.mcp.json` and the same five skills. With this repository checked out locally, load it in Claude Code:
+The native Claude adapter uses `.claude-plugin/plugin.json`, `.mcp.json` and the same five skills. The marketplace entry in [gooseworks-ai/gooseworks](https://github.com/gooseworks-ai/gooseworks) points at this repository, so the install commands above always fetch it from here.
+
+To try a local checkout without the marketplace, load it for one session:
 
 ```sh
 claude --plugin-dir /absolute/path/to/agent-plugin
 ```
 
-Sign in to the GooseWorks MCP connection when Claude prompts. Claude manages its OAuth credentials. Installing the plugin does not authorize an account or approve paid work. For chat and Cowork, installation through the public directory depends on Anthropic accepting the plugin and its associated MCP connector.
+Claude manages the OAuth credentials for the MCP connection. Installing the plugin does not authorize an account or approve paid work.
 
-Directory publication is pending. The current package includes AI image and video workflows, so its eligibility must be resolved against the [Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy) before publication. Local schema validation does not establish policy acceptance, sign-in or end-to-end workflow behavior.
+This plugin is not listed in Anthropic's directory. The marketplace above is the supported way to install it.
 
 ## Hermes installation and approvals
 
