@@ -5,7 +5,7 @@
   "source": {
     "repository": "https://github.com/athina-ai/gooseworks-app",
     "directory": "apps/plugin",
-    "commit": "fae87044989843d3fe667b2cf3d7a8166cc0f6cd",
+    "commit": "c922f7b5d07c735647ddb685df08bb4ba76bbf4b",
     "inputState": "clean"
   },
   "inputs": {
@@ -13,7 +13,7 @@
     "apps/plugin/LICENSE": "1dce87b2c873b3a1e14c1e17481691b29d909c65ac3abe0498ed92dd8192c348",
     "apps/plugin/mcp.json": "a43aa4a6b8ad0781263e061299205d3a0c077c1c45abff6f033abd91d98eaf43",
     "apps/plugin/migration-baseline.json": "743b39657c90e3966cc5d63866c9dc2d34bfa278ba87832e3760e132611a7c2c",
-    "apps/plugin/openai/extension.json": "846ea9bac596e3a559f2c79b1de55bcc383aa81caabdb8b31535bd186c043e5a",
+    "apps/plugin/openai/extension.json": "a33fa7c2009fdb47f75ce3e7f3c2e490ce0688eb397aa4cf44b00d6ff112242a",
     "apps/plugin/PACKAGE-README.md": "7313bdd5fe77d1db692e906c272f2029f05f18ce0df19dda2c0dd72b7997bc2d",
     "apps/plugin/package.json": "0e7795c2a76fccd66d7aba7aa37ba78466625b133e7d73af53fde781d3036f3e",
     "apps/plugin/plugin.json": "060e8fe01f4917809c749bce9f5503e98dc79b736f2efe746d9078b4ba1cf61d",
