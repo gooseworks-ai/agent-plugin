@@ -7,11 +7,11 @@ GooseWorks for Claude Code and other agents: brand research, image ads, product 
 Add the GooseWorks marketplace once, then install the plugin:
 
 ```sh
-claude plugin marketplace add gooseworks-ai/gooseworks
-claude plugin install gooseworks@gooseworks
+claude plugin marketplace add gooseworks-ai/agent-plugin
+claude plugin install gooseworks@gooseworks-plugin
 ```
 
-Sign in to GooseWorks when Claude prompts. To get new versions, run `claude plugin update gooseworks@gooseworks`, or turn on auto-update for the `gooseworks` marketplace.
+Sign in to GooseWorks when Claude prompts. To get new versions, run `claude plugin update gooseworks@gooseworks-plugin`, or turn on auto-update for the `gooseworks-plugin` marketplace.
 
 On claude.ai, Claude Desktop or Cowork, add `https://mcp.gooseworks.ai/mcp` as a custom connector to use the GooseWorks tools. The skills in this package are not added that way.
 
@@ -40,7 +40,7 @@ Sandbox execution is not included in this package. Its availability and credit c
 
 ## Claude adapter
 
-The native Claude adapter uses `.claude-plugin/plugin.json`, `.mcp.json` and the same five skills. The marketplace entry in [gooseworks-ai/gooseworks](https://github.com/gooseworks-ai/gooseworks) points at this repository, so the install commands above always fetch it from here.
+The native Claude adapter uses `.claude-plugin/plugin.json`, `.mcp.json` and the same five skills. This repository is also the plugin's marketplace (`.claude-plugin/marketplace.json`), so the install commands above fetch it from here.
 
 To try a local checkout without the marketplace, load it for one session:
 

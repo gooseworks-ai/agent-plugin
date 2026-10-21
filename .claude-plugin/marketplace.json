@@ -1,0 +1,13 @@
+{
+  "name": "gooseworks-plugin",
+  "owner": {
+    "name": "GooseWorks",
+    "url": "https://gooseworks.ai"
+  },
+  "plugins": [
+    {
+      "name": "gooseworks",
+      "source": "./"
+    }
+  ]
+}
